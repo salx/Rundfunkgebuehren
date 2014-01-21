@@ -1,0 +1,82 @@
+
+.y.axis path {
+	display: none;
+}
+
+
+/*
+g.x.axis {
+	margin: 10px;
+} SiFUu wieso funkt das nicht???
+*/
+
+.axis path {
+	fill: none;
+	stroke: #000;
+	stroke-width: 2px;
+	
+}
+.axis line {
+	fill: none;
+	stroke: #000;
+	stroke-width: 1px;
+	shape-rendering: crispEdges;
+}
+
+text {
+	font: 14px sans-serif;
+	font-family: Arial;
+	font-weight: bold;
+	padding: 5px;
+}
+
+
+rect:hover {
+	border: 10px solid black;
+
+}
+
+
+/*
+rect:hover{
+	fill: orange;
+}
+*/
+.d3-tip {
+	line-height: 1;
+	font-weight: bold;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+
+}
+
+.d3-tip:after{
+	box-sizing: border-box;
+	display: inline;
+	font-size: 14px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\25BC";
+	position: absolute;
+	text-align: center;
+}
+
+.d3-tip.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+.line{
+	fill: none;
+	stroke: #E33;
+	stroke-width: 3px;
+}
+
+.axis line {
+	shape-rendering: crispEdges;
+}
+

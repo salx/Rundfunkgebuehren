@@ -1,0 +1,10 @@
+Bundesland	Gesamt	Radiogebuehr	Fernsehgebuehr	Programmentgelt	Kunstfoerderung	USt.	Landesabgabe
+Wien	24.88	0.36	1.16	16.16	0.48	1.62	5.1
+Niederoesterreich	24.08	0.36	1.16	16.16	0.48	1.62	4.3
+Burgenland	22.48	0.36	1.16	16.16	0.48	1.62	2.7
+Oberoesterreich	19.78	0.36	1.16	16.16	0.48	1.62	0
+Salzburg	24.48	0.36	1.16	16.16	0.48	1.62	4.7
+Steiermark	25.18	0.36	1.16	16.16	0.48	1.62	5.4
+Kaernten	24.88	0.36	1.16	16.16	0.48	1.62	5.1
+Tirol	23.28	0.36	1.16	16.16	0.48	1.62	3.5
+Vorarlberg	19.78	0.36	1.16	16.16	0.48	1.62	0
