@@ -69,7 +69,7 @@ ToDo:
 		data.sort(function(a, b){ return b.gesamt - a.gesamt }); //ah, so einfach ist das mit dem sortieren...
 
 		y.domain(data.map(function(d){return d.Bundesland; }) );
-		x.domain([0, d3.max(data, function(d){return d.gesamt + 5; }) ]);
+		x.domain([0, d3.max(data, function(d){return d.gesamt + 0.9; }) ]);
 
 		svg.append("g") //gruppe x Achse
 			.attr("class", "x axis")
@@ -82,10 +82,12 @@ ToDo:
 			.style("text-anchor", "end")
 			.text("Euro");
 
+		/*	
 		svg.append("g")
 			.attr("class", "y axis")
 			.call(yAxis);
-	
+		*/
+
 		var bundesland = svg.selectAll(".bundesland")
 			.data(data)
 			.enter()
@@ -104,6 +106,14 @@ ToDo:
 			.style("fill-opacity", "1")
 			.on("mouseover", tip.show)
 			.on("mouseout", tip.hide);
+
+		
+		bundesland.append("text")
+			.text(function(d){ return d.Bundesland; })
+			.style("fill", "fff")
+			.attr("x", margin.left+5)
+			.attr("dy", "1.5em")
+			.attr("text-anchor", "start");
 		
 		
 		var line = svg.selectAll(".vline")
