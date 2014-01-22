@@ -3,13 +3,10 @@ Fragen: wie könne ich die einzelnen Werte ordnen, so dass immer zu unterst der 
 Jetzt habe ich das im csv sortiert...
 
 ToDo: 
-- Linien rund um Boxes zeichnen?
-- Angabe der Mengen wie? Vielleicht mit Tooltips - aber fixiert, irgendwie? oder mit fixierten Linien?
-- Zwischen den Linien mit Brush zoomen? 
-- Gebühren und Abgaben getrennt markieren? Bundes-Abgaben getrennt markieren?
-- Foto?
-- Ticks wer bei Bundesländern
-- mit Scale spielen?
+- curly braces on top, ORF, Bund, Länder
+- zu den Labels: Gesamtmengen
+- Abtrennung auf der Seite. Foto? Linie
+- spielen mi curly brace: https://gist.github.com/alexhornbake/6005176. Einbinden?
 
 
 */
@@ -36,10 +33,12 @@ ToDo:
 		.scale(x)
 		.orient("bottom");
 
+	/*
 	var yAxis = d3.svg.axis()
 		.scale(y)
 		.orient("right")
 		.ticks(0); //wieso reagiert die Darstellung niht?;
+	*/
 
 	var tip = d3.tip()
 		.attr("class", "d3-tip")
@@ -52,7 +51,10 @@ ToDo:
 		.append("g")
 		.attr("transform", "translate(" + margin.left + ","+margin.top + ")");
 
+	var test = drawCurlyBrace(3,30,4,40,50,0.6);
+
 	svg.call(tip);
+	svg.call(drawCurlyBrace);
 
 	//load data
 	d3.csv("Gebuehren.csv", function(error, data){ 
@@ -77,8 +79,8 @@ ToDo:
 			.call(xAxis)
 			.append("text")
 			//.attr("transform", "rotate(-90)")
-			.attr("x", 45)
-			.attr("dy", "-0.41em")
+			.attr("x", -10)
+			.attr("dy", "0.41em")
 			.style("text-anchor", "end")
 			.text("Euro");
 
@@ -109,8 +111,8 @@ ToDo:
 
 		
 		bundesland.append("text")
-			.text(function(d){ return d.Bundesland; })
-			.style("fill", "fff")
+			.text(function(d){ return d.Bundesland + ": " + d3.round( d.gesamt, 2) + " €"; })
+			.style("fill", "#eee")
 			.attr("x", margin.left+5)
 			.attr("dy", "1.5em")
 			.attr("text-anchor", "start");
@@ -136,8 +138,75 @@ ToDo:
 			.attr("y2", -60)
 			.style("stroke", "#444");
 
-
 	});
+
+//  try making curly braces
+	
+	function drawCurlyBrace(x1,y1,x2,y2,w,q){
+		// ich muss hier die Daten definieren....
+
+		var bracket = svg.selectAll("path")
+	    	.attr("class","curlyBrace")
+	    	//.data(data);//.data(coords); error data is not defined
+	    
+	    console.log("here");//2 mal. wieso?
+
+	   	bracket
+	   		//.enter() enter... has no method
+	   		.append("path").attr("class","curlyBrace");
+
+	   	bracket.attr("d", function(d) { return makeCurlyBrace(d.x1,d.y1,d.x2,d.y2,50,0.6); });
+
+		function makeCurlyBrace(x1,y1,x2,y2,w,q){
+			//Calculate unit vector
+			var dx = x1-x2;
+			var dy = y1-y2;
+			var len = Math.sqrt(dx*dx + dy*dy);
+			dx = dx / len;
+			dy = dy / len;
+
+			//Calculate Control Points of path,
+			var qx1 = x1 + q*w*dy;
+			var qy1 = y1 - q*w*dx;
+			var qx2 = (x1 - .25*len*dx) + (1-q)*w*dy;
+			var qy2 = (y1 - .25*len*dy) - (1-q)*w*dx;
+			var tx1 = (x1 -  .5*len*dx) + w*dy;
+			var ty1 = (y1 -  .5*len*dy) - w*dx;
+			var qx3 = x2 + q*w*dy;
+			var qy3 = y2 - q*w*dx;
+			var qx4 = (x1 - .75*len*dx) + (1-q)*w*dy;
+			var qy4 = (y1 - .75*len*dy) - (1-q)*w*dx;
+
+    	return ( "M " +  x1 + " " +  y1 +
+         		" Q " + qx1 + " " + qy1 + " " + qx2 + " " + qy2 + 
+          		" T " + tx1 + " " + ty1 +
+          		" M " +  x2 + " " +  y2 +
+          		" Q " + qx3 + " " + qy3 + " " + qx4 + " " + qy4 + 
+          		" T " + tx1 + " " + ty1 );
+		}
+	}
+	
+	//function update(){
+	    
+	   	
+	   	//bracket.exit().remove();			    
+	    //coords.shift(); brauch ich nicht
+	   	//}
+	
+
+	
+	/* brauch ich nicht.
+	var width = 962;
+		var height = 502;
+		var coords = [];
+		var clickPos = {};
+
+	var svg = d3.select("body").append("svg")
+    		.attr("width", width)
+    		.attr("height", height)
+    		.attr("x1", 3)
+    		.attr( "y1", 7)
+	*/
 
 
 })();
